@@ -1,5 +1,7 @@
 extends Node2D
 
+# Aaron test for sync
+
 var max_enemies = 3
 @export var enemy_spawn_interval: float
 var current_number_of_enemies: int
