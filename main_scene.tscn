@@ -7,8 +7,16 @@
 script = ExtResource("1_2c62f")
 
 [node name="Player" parent="." instance=ExtResource("1_0f027")]
+position = Vector2(572, 259)
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2(400.99994, 92.00001)
+scale = Vector2(2.9784484, 1.6570379)
+polygon = PackedVector2Array(-136.31256, -54.313793, -137.3198, 335.5385, 256.84515, 335.5385, 252.81621, -58.5382, -133.29085, -58.5382, -147.7279, -155.09604, 280.68304, -148.4577, 293.10565, 391.05927, -179.28796, 387.43835, -194.39648, -158.11348)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

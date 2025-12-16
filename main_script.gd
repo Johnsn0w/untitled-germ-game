@@ -1,25 +1,40 @@
 extends Node2D
 
+var test_dictionary = {"key_1": "value of key 1", "key_2": "value of key 2"}
+
+
+	
+
+
+func _ready() -> void:
+	print(
+		test_dictionary["key_1"]
+		
+	)
+
+
 func get_random_spawn_data() -> Dictionary:
 	var screen_size = get_viewport().get_visible_rect().size
 	var edge = randi() % 4
+	
 	var position: Vector2
 	var velocity: Vector2
-	var speed = randf_range(100.0, 200.0)
+	var speed = randf_range(100.0, 500.0)
+	var angle = randf_range(50.0, 100)
 	
 	match edge:
 		0: # Left to Right
 			position = Vector2(-50, randf_range(0, screen_size.y))
-			velocity = Vector2(speed, 0)
+			velocity = Vector2(speed, angle)
 		1: # Right to Left
 			position = Vector2(screen_size.x + 50, randf_range(0, screen_size.y))
-			velocity = Vector2(-speed, 0)
+			velocity = Vector2(-speed, angle)
 		2: # Top to Bottom
 			position = Vector2(randf_range(0, screen_size.x), -50)
-			velocity = Vector2(0, speed)
+			velocity = Vector2(angle, speed)
 		3: # Bottom to Top
 			position = Vector2(randf_range(0, screen_size.x), screen_size.y + 50)
-			velocity = Vector2(0, -speed)
+			velocity = Vector2(angle, -speed)
 			
 	return {
 		"position": position,
@@ -34,12 +49,7 @@ func spawn_enemy() -> void:
 	add_child(new_enemy)
 	print("enemy spawned at %s with velocity %s" % [new_enemy.position, new_enemy.velocity])
 
-var max_enemies = 3
-@export var enemy_spawn_interval: float
-var current_number_of_enemies: int
 
-func _ready() -> void:
-	print("hello from main")
 	
 func _process(_delta: float) -> void:
 	pass
@@ -53,5 +63,5 @@ func _process(_delta: float) -> void:
 #	print("enemy spawn")
 
 func _on_timer_timeout() -> void:
-	if MainScript.current_number_of_enemies < MainScript.max_enemies:
+	if GlobalVars.current_number_of_enemies < GlobalVars.max_enemies:
 		spawn_enemy()
